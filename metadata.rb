@@ -1,10 +1,10 @@
-name 'cdb'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+name 'CDB'
+maintainer 'Rushinth John'
+maintainer_email 'rushinth@appranix'
 license 'all_rights'
-description 'Installs/Configures cdb'
-long_description 'Installs/Configures cdb'
-version '0.1.0'
+description 'Clustered MongoDB Scenario'
+long_description 'Cookbook conatining recipes to initailize respective nodes of a Clustered MongoDB Scenario'
+version '0.1.1'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
