@@ -4,7 +4,7 @@ maintainer_email 'rushinth@appranix'
 license 'all_rights'
 description 'Clustered MongoDB Scenario'
 long_description 'Cookbook conatining recipes to initailize respective nodes of a Clustered MongoDB Scenario'
-version '0.2.0'
+version '0.2.5'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
