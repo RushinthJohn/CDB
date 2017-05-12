@@ -34,7 +34,6 @@ execute 'Starting Config Server B' do
   command 'mongod --replSet cfgst --logpath "cfg-b.log" --dbpath /data/config/config-b --port 57041 --fork --configsvr'
   not_if 'pstree | grep mongod'
   notifies :run, 'execute[Starting MongoD Shard-0 Replica-1]', :immediately
-  action :nothing
 end
 
 execute 'Starting MongoD Shard-0 Replica-1' do
@@ -47,6 +46,5 @@ end
 execute 'Starting MongoD Shard-1 Replica-1' do
   command 'mongod --replSet s1 --logpath "s1-r1.log" --dbpath /data/shard1/rs1 --port 47018 --fork --shardsvr'
   not_if 'pstree | grep mongod'
-  notifies :run, 'execute[Starting Config Server C]', :immediately
   action :nothing
 end

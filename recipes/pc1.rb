@@ -46,6 +46,5 @@ end
 execute 'Starting MongoD Shard-1 Replica-0' do
   command 'mongod --replSet s1 --logpath "s1-r0.log" --dbpath /data/shard1/rs0 --port 47017 --fork --shardsvr'
   not_if 'pstree | grep mongod'
-  notifies :run, 'execute[Starting Config Server B]', :immediately
   action :nothing
 end
