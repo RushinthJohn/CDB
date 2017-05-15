@@ -4,7 +4,7 @@ maintainer_email 'rushinth@appranix'
 license 'all_rights'
 description 'Clustered MongoDB Scenario'
 long_description 'Cookbook conatining recipes to initailize respective nodes of a Clustered MongoDB Scenario'
-version '0.3.0'
+version '1.0.0'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
@@ -17,6 +17,3 @@ issues_url 'https://github.com/RushinthJohn/cdb/issues' if respond_to?(:issues_u
 # a Supermarket.
 #
 source_url 'https://github.com/RushinthJohn/cdb' if respond_to?(:source_url)
-
-depends "cdb"
-depends "CDB"

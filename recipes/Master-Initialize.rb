@@ -1,62 +1,52 @@
 #
-# Cookbook:: cdb
+# Cookbook:: CDB
 # Recipe:: Master-Initialize
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 #1> PC1-Master
 
-execute 'Set members and initaite Shard 0' do
-  command 'command mongo --port 37017 < /tmp/initailize.txt'
-  action :nothing
-end
-
-cookbook_file '/tmp/initailize.txt' do
-  source 'initailize.txt'
+cookbook_file '/tmp/shard0.sh' do
+  source 'shard0.sh'
   owner 'root'
   group 'root'
   mode '0755'
-  notifies :run, 'execute[Set members and initaite Shard 0]', :immediately
+  #notifies :run, 'execute[Set members and initaite Shard 1]', :immediately
   action :create
 end
-=begin
-template '/tmp/initailize.txt' do
-  source 'initailize.txt'
+
+execute 'Set members and initaite Shard 0' do
+  command 'bash < shard0.sh'
+  cwd '/tmp'
+  action :run
+end
+
+cookbook_file '/tmp/shard1.sh' do
+  source 'shard1.sh'
   owner 'root'
   group 'root'
   mode '0755'
-#  notifies :run, 'execute[Set members and initaite Shard 0]', :immediately
-  action :create_if_missing
-end
-=end
-=begin
-execute 'Set members and initaite Shard 0' do
-  command mongo --port 37017 << 'EOF'
-config = { _id: "s0", members:[
-          { _id : 0, host : "192.168.1.127:37017" },
-          { _id : 1, host : "192.168.1.130:37018" },
-          { _id : 2, host : "192.168.1.128:37019" }]};
-rs.initiate(config)
-EOF
+  #notifies :run, 'execute[Set members and initaite Shard 1]', :immediately
+  action :create
 end
 
 execute 'Set members and initaite Shard 1' do
-  command mongo --port 47017 << 'EOF'
-config = { _id: "s1", members:[
-          { _id : 0, host : "192.168.1.127:47017" },
-          { _id : 1, host : "192.168.1.130:47018" },
-          { _id : 2, host : "192.168.1.128:47019" }]};
-rs.initiate(config)
-EOF
+  command 'bash < shard1.sh'
+  cwd '/tmp'
+  action :run
+end
+
+cookbook_file '/tmp/config.sh' do
+  source 'config.sh'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  #notifies :run, 'execute[Set members and initaite Config Server]', :immediately
+  action :create
 end
 
 execute 'Set members and initaite Config Server' do
-  command mongo --port 57040 << 'EOF'
-config = { _id: "cfgst", members:[
-          { _id : 0, host : "192.168.1.127:57040" },
-          { _id : 1, host : "192.168.1.130:57041" },
-          { _id : 2, host : "192.168.1.128:57042" }]};
-rs.initiate(config)
-EOF
+  command 'bash < config.sh'
+  cwd '/tmp'
+  action :run
 end
-=end
