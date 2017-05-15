@@ -1,0 +1,16 @@
+#4> MongoS Server
+
+# now start the mongos on a standard port
+
+mongos --logpath "mongos-1.log" --configdb cfgst/192.168.1.113:57040,192.168.1.114:57041,192.168.1.115:57042 --fork
+
+
+# add shards and enable sharding on the test db
+
+mongo <<'EOF'
+use admin
+db.runCommand( { addshard : "s0/192.168.1.113:37017" } );
+db.runCommand( { addshard : "s1/192.168.1.113:47017" } );
+db.runCommand( { enableSharding: "data" } );
+db.runCommand( { shardCollection: "data.try", key: { _id:1 } } );
+EOF

@@ -1,0 +1,18 @@
+#3> PC3-Slave
+
+
+mkdir -p /data/config/config-c /data/shard0/rs2 /data/shard1/rs2
+
+# starting config server relica c
+
+mongod --replSet cfgst --logpath "cfg-c.log" --dbpath /data/config/config-c --port 57042 --fork --configsvr
+
+
+# starting shard 0 replica c
+
+mongod --replSet s0 --logpath "s0-r2.log" --dbpath /data/shard0/rs2 --port 37019 --fork --shardsvr
+
+
+# starting shard 1 replica 1
+
+mongod --replSet s1 --logpath "s1-r2.log" --dbpath /data/shard1/rs2 --port 47019 --fork --shardsvr

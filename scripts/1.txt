@@ -1,0 +1,47 @@
+#1> PC1-Master
+
+
+mkdir -p /data/config/config-a /data/shard0/rs0 /data/shard1/rs0
+
+# starting config server relica a
+
+mongod --replSet cfgst --logpath "cfg-a.log" --dbpath /data/config/config-a --port 57040 --fork --configsvr
+
+
+# starting shard 0 replica 0
+
+mongod --replSet s0 --logpath "s0-r0.log" --dbpath /data/shard0/rs0 --port 37017 --fork --shardsvr
+
+
+# starting shard 1 replica 0
+mongod --replSet s1 --logpath "s1-r0.log" --dbpath /data/shard1/rs0 --port 47017 --fork --shardsvr
+
+# connect to shard 0, set members and initiate
+
+mongo --port 37017 << 'EOF'
+config = { _id: "s0", members:[
+          { _id : 0, host : "192.168.1.113:37017" },
+          { _id : 1, host : "192.168.1.114:37018" },
+          { _id : 2, host : "192.168.1.115:37019" }]};
+rs.initiate(config)
+EOF
+
+# connect to shard 1, set members and initiate
+
+mongo --port 47017 << 'EOF'
+config = { _id: "s1", members:[
+          { _id : 0, host : "192.168.1.113:47017" },
+          { _id : 1, host : "192.168.1.114:47018" },
+          { _id : 2, host : "192.168.1.115:47019" }]};
+rs.initiate(config)
+EOF
+
+# connect to configuration server, set members and initiate
+
+mongo --port 57040 << 'EOF'
+config = { _id: "cfgst", members:[
+          { _id : 0, host : "192.168.1.113:57040" },
+          { _id : 1, host : "192.168.1.114:57041" },
+          { _id : 2, host : "192.168.1.115:57042" }]};
+rs.initiate(config)
+EOF
