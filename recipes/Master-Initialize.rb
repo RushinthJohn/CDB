@@ -6,13 +6,11 @@
 
 #1> PC1-Master
 
-cookbook_file '/tmp/shard0.sh' do
-  source 'shard0.sh'
+template '/tmp/shard0.sh' do
+  source 'shard0.sh.erb'
   owner 'root'
   group 'root'
   mode '0755'
-  #notifies :run, 'execute[Set members and initaite Shard 1]', :immediately
-  action :create
 end
 
 execute 'Set members and initaite Shard 0' do
@@ -21,13 +19,11 @@ execute 'Set members and initaite Shard 0' do
   action :run
 end
 
-cookbook_file '/tmp/shard1.sh' do
-  source 'shard1.sh'
+template '/tmp/shard1.sh' do
+  source 'shard1.sh.erb'
   owner 'root'
   group 'root'
   mode '0755'
-  #notifies :run, 'execute[Set members and initaite Shard 1]', :immediately
-  action :create
 end
 
 execute 'Set members and initaite Shard 1' do
@@ -36,13 +32,11 @@ execute 'Set members and initaite Shard 1' do
   action :run
 end
 
-cookbook_file '/tmp/config.sh' do
-  source 'config.sh'
+template '/tmp/config.sh' do
+  source 'config.sh.erb'
   owner 'root'
   group 'root'
   mode '0755'
-  #notifies :run, 'execute[Set members and initaite Config Server]', :immediately
-  action :create
 end
 
 execute 'Set members and initaite Config Server' do

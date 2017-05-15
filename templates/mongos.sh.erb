@@ -1,0 +1,11 @@
+# add shards and enable sharding on the test db
+
+mongos --logpath "mongos-1.log" --configdb cfgst/<%= node['CDB']['pc1'] %>:57020,<%= node['CDB']['pc2'] %>:57025,<%= node['CDB']['pc3'] %>:57030 --fork
+
+mongo <<'EOF'
+use admin
+db.runCommand( { addshard : "s0/<%= node['CDB']['pc3'] %>:37030" } );
+db.runCommand( { addshard : "s1/<%= node['CDB']['pc3'] %>:47030" } );
+db.runCommand( { enableSharding: "data" } );
+db.runCommand( { shardCollection: "data.try", key: { _id:1 } } );
+EOF

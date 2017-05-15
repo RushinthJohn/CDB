@@ -1,0 +1,9 @@
+# connect to shard 1, set members and initiate
+
+mongo --port 47030 << 'EOF'
+config = { _id: "s1", members:[
+          { _id : 0, host : "<%= node['CDB']['pc1'] %>:47020" },
+          { _id : 1, host : "<%= node['CDB']['pc2'] %>:47025" },
+          { _id : 2, host : "<%= node['CDB']['pc3'] %>:47030" }]};
+rs.initiate(config)
+EOF

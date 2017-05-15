@@ -1,0 +1,9 @@
+# connect to configuration server, set members and initiate
+
+mongo --port 57030 << 'EOF'
+config = { _id: "cfgst", members:[
+          { _id : 0, host : "<%= node['CDB']['pc1'] %>:57020" },
+          { _id : 1, host : "<%= node['CDB']['pc2'] %>:57025" },
+          { _id : 2, host : "<%= node['CDB']['pc3'] %>:57030" }]};
+rs.initiate(config)
+EOF

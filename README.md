@@ -4,12 +4,7 @@ This cookbook helps to create a Clustered MongoDB scenario with Replication and 
 
 TODO:
 
-After initialising 4 virtual instances of CentOS 7 on any VM run 'knife solo prepare' from your workstaion on all 4 instances, after that note down the IP adresses of the instances and update the following files:
-config.sh
-mongos.sh
-shard0.sh
-shard1.sh
-pc4.rb
+After initialising 4 virtual instances of CentOS 7 on any VM run 'knife solo prepare' from your workstaion on all 4 instances, after that note down the IP adresses of the instances and update them in attributes/default.rb.
 
 Then proceed with the following tasks in order.
 
@@ -19,9 +14,9 @@ Then proceed with the following tasks in order.
 4. Update first instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc1]","recipe[CDB::Master-Initialize]"]
 5. Update fourth instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc4]"]
 6. Cook recipes in following order:
-   1) Instance 2
-   2) Instance 3
-   3) Instance 1
+   1) Instance 1
+   2) Instance 2
+   3) Instance 3
    4) Instance 4
 
 The main app communicates with MongoDB through the fourth instance. All mongo operation and commands are to be executed through the fouth instance.
