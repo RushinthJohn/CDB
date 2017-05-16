@@ -32,19 +32,19 @@ end
 
 execute 'Starting Config Server B' do
   command 'mongod --replSet cfgst --logpath "cfg-b.log" --dbpath /data/config/config-b --port 57025 --fork --configsvr'
-  #not_if 'pstree | grep mongod'
+  not_if 'netstat -l | grep mongodb-57025'
   #notifies :run, 'execute[Starting MongoD Shard-0 Replica-1]', :immediately
 end
 
 execute 'Starting MongoD Shard-0 Replica-1' do
   command 'mongod --replSet s0 --logpath "s0-r1.log" --dbpath /data/shard0/rs1 --port 37025 --fork --shardsvr'
-  #not_if 'pstree | grep mongod'
+  not_if 'netstat -l | grep mongodb-37025'
   #notifies :run, 'execute[Starting MongoD Shard-1 Replica-1]', :immediately
   #action :nothing
 end
 
 execute 'Starting MongoD Shard-1 Replica-1' do
   command 'mongod --replSet s1 --logpath "s1-r1.log" --dbpath /data/shard1/rs1 --port 47025 --fork --shardsvr'
-  #not_if 'pstree | grep mongod'
+  not_if 'netstat -l | grep mongodb-47025'
   #action :nothing
 end
