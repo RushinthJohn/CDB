@@ -1,10 +1,10 @@
 #
 # Cookbook:: CDB
-# Recipe:: Master-Initialize
+# Recipe:: master_initialize
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-#1> PC1-Master
+# 1> PC1-Master
 
 template '/tmp/shard0.sh' do
   source 'shard0.sh.erb'

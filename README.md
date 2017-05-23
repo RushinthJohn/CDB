@@ -9,9 +9,9 @@ After initialising 4 virtual instances of CentOS 7 on any VM run 'knife solo pre
 Then proceed with the following tasks in order.
 
 1. Update the runlist on all the generated JSON files under the nodes diretory for each corresponding instances.
-2. Update second instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc2]"]
-3. Update third instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc3]"]
-4. Update first instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc1]","recipe[CDB::Master-Initialize]"]
+2. Update first instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc1]"]
+3. Update second instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc2]"]
+4. Update third instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc3]","recipe[CDB::master_initialize]"]
 5. Update fourth instance JSON file with runlist as ["recipe[CDB]","recipe[CDB::pc4]"]
 6. Cook recipes in following order:
    1) Instance 1

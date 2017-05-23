@@ -4,7 +4,7 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
-#4> MongoS Server
+# 4> MongoS Server
 
 template '/tmp/mongos.sh' do
   source 'mongos.sh.erb'
